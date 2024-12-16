@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лучшие продавцы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+        }
+        .navbar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+        .navbar-menu a:hover {
+            color: #3498db;
+        }
+        .employee-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .employee-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+        .employee-dropdown:hover .employee-dropdown-content {
+            display: block;
+        }
+        .employee-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .employee-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .sellers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .seller-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .seller-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .seller-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background-color: #e6f2ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .seller-icon img {
+            width: 50px;
+            height: 50px;
+        }
+        .seller-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .seller-specialty {
+            color: #2c7be5;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .seller-description {
+            color: #666;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 5%;
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-column {
+            flex: 1;
+            margin-right: 30px;
+            min-width: 200px;
+        }
+        .footer-column h3 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        .footer-column ul {
+            list-style-type: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer-column ul li a:hover {
+            color: #3498db;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+        }
+        @media (max-width: 1024px) {
+            .sellers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .sellers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="navbar-logo">Платформа найма</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar-menu" id="navbarMenu">
+            <a href = "about.html"> О нас</a>
+            <a href="about.html">Главная</a>
+            
+            <div class="employee-dropdown">
+                <a href="#">Соискатели</a>
+                <div class="employee-dropdown-content">
+                    <a href="prog.html">Программисты</a>
+                    <a href="teacher.html" data-page="index.html#education">Учителя</a>
+                    <a href="doctor.html" data-page="index.html#healthcare">Врачи</a>
+                    <a href="injener.html" ">Инженеры</a>
+                    <a href="builder.html" data-page="index.html#construction">Строители</a>
+                    <a href="santecnik.html" data-page="index.html#plumbing">Сантехники</a>
+                    <a href="designer.html" data-page="index.html#design">Дизайнеры</a>
+                    <a href="market.html" >Маркетологи</a>
+                    <a href="burglar.html" data-page="index.html#finance">Бухгалтеры</a>
+                    <a href="seller.html" data-page="index.html#sales">Продавцы</a>
+                    
+                </div>
+            </div>
+            <a href="contact.html">Контакты</a>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <h1 class="title">Лучшие продавцы</h1>
+        <div class="sellers-grid">
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller1.png" alt="Продавец электроники">
+                </div>
+                <div class="seller-name">Александр Иванов</div>
+                <div class="seller-specialty">Продавец электроники</div>
+                <div class="seller-description">
+                    Специалист по бытовой технике, всегда поможет выбрать лучшее.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller2.png" alt="Продавец одежды">
+                </div>
+                <div class="seller-name">Мария Смирнова</div>
+                <div class="seller-specialty">Продавец одежды</div>
+                <div class="seller-description">
+                    Эксперт в модных трендах и подборе гардероба.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller3.png" alt="Продавец автомобилей">
+                </div>
+                <div class="seller-name">Иван Кузнецов</div>
+                <div class="seller-specialty">Продавец автомобилей</div>
+                <div class="seller-description">
+                    Знает всё о современных автомобилях, помогает найти идеальный вариант.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller4.png" alt="Продавец мебели">
+                </div>
+                <div class="seller-name">Ольга Федорова</div>
+                <div class="seller-specialty">Продавец мебели</div>
+                <div class="seller-description">
+                    Поможет обустроить ваш дом красивой и удобной мебелью.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller5.png" alt="Продавец книг">
+                </div>
+                <div class="seller-name">Дмитрий Сидоров</div>
+                <div class="seller-specialty">Продавец книг</div>
+                <div class="seller-description">
+                    Подберёт книги на любой вкус, настоящий знаток литературы.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller6.png" alt="Продавец продуктов">
+                </div>
+                <div class="seller-name">Елена Павлова</div>
+                <div class="seller-specialty">Продавец продуктов</div>
+                <div class="seller-description">
+                    Консультант по свежим и органическим продуктам.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller7.png" alt="Продавец спортивных товаров">
+                </div>
+                <div class="seller-name">Максим Романов</div>
+                <div class="seller-specialty">Продавец спортивных товаров</div>
+                <div class="seller-description">
+                    Знает всё о спорте и активном отдыхе, поможет выбрать нужное оборудование.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller8.png" alt="Продавец цветов">
+                </div>
+                <div class="seller-name">Анна Крылова</div>
+                <div class="seller-specialty">Продавец цветов</div>
+                <div class="seller-description">
+                    Создаёт букеты и флористические композиции для любого случая.
+                </div>
+            </div>
+            <div class="seller-card">
+                <div class="seller-icon">
+                    <img src="https://example.com/seller9.png" alt="Продавец косметики">
+                </div>
+                <div class="seller-name">Татьяна Белова</div>
+                <div class="seller-specialty">Продавец косметики</div>
+                <div class="seller-description">
+                    Консультант по уходу за кожей и выбору косметики.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>О компании</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Наша команда</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Услуги</h3>
+                <ul>
+                    <li><a href="#">Для клиентов</a></li>
+                    <li><a href="#">Для продавцов</a></li>
+                    <li><a href="#">Поддержка</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Бишкек, ул. Иса Ахунбаева 125/2</p>
+                    <p><i class="fas fa-envelope"></i> worktime@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +996 (777) 777 777</p>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Социальные сети</h3>
+                <ul class="social-icons">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </footer>
+</body>
+</html>

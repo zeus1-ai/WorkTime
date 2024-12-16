@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лучшие программисты</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+        }
+        .navbar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-menu.active {
+            display: flex;
+            flex-direction: column;
+            background-color: #2c3e50;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+        }
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+        .navbar-menu a:hover {
+            color: #3498db;
+        }
+        .employee-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .employee-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+        .employee-dropdown:hover .employee-dropdown-content {
+            display: block;
+        }
+        .employee-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .employee-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .theme-toggle-container {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .theme-toggle, .mobile-menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+        .mobile-menu-toggle {
+            display: none;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 5%;
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-column {
+            flex: 1;
+            margin-right: 30px;
+            min-width: 200px;
+        }
+        .footer-column h3 {
+            color: #3498db;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        .footer-column ul {
+            list-style-type: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-column ul li a:hover {
+            color: #3498db;
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #3498db;
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: #3498db;
+            width: 20px;
+            text-align: center;
+        }
+        .footer-bottom {
+            background-color: #253746;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+        .programmers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .programmer-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .programmer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .programmer-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #e6f2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        .programmer-icon img {
+            width: 50px;
+            height: 50px;
+        }
+        .programmer-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .programmer-specialty {
+            color: #2c7be5;
+            margin-bottom: 10px;
+        }
+        .programmer-description {
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .navbar-menu {
+                display: none;
+            }
+        }
+        
+    </style>
+</head>
+</html>
+
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="navbar-logo">Платформа найма</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar-menu" id="navbarMenu">
+            <a href = "about.html"> О нас</a>
+            <a href="about.html">Главная</a>
+            
+            <div class="employee-dropdown">
+                <a href="#">Соискатели</a>
+                <div class="employee-dropdown-content">
+                    <a href="prog.html">Программисты</a>
+                    <a href="teacher.html"">Учителя</a>
+                    <a href="doctor.html" >Врачи</a>
+                    <a href="injener.html">Инженеры</a>
+                    <a href="builder.html">Строители</a>
+                    <a href="santecnik.html">Сантехники</a>
+                    <a href="designer.html">Дизайнеры</a>
+                    <a href="market.html" >Маркетологи</a>
+                    <a href="burglar.html" >Бухгалтеры</a>
+                    <a href="seller.html">Продавцы</a>
+                </div>
+            </div>
+            <a href="#" data-page="index.html#contact">Контакты</a>
+        </div>
+        <div class="theme-toggle-container">
+            <button class="theme-toggle" id="modeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+<body>
+    <div class="container">
+        <h1 class="title">Лучшие программисты в разных областях</h1>
+        <div class="programmers-grid">
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="https://th.bing.com/th/id/OIP.JlBB3sE8nDPtPLwvdyGMWAHaHa?w=192&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Веб-разработчик">
+                </div>
+                <div class="programmer-name">Максим Петров</div>
+                <div class="programmer-specialty">Веб-разработчик</div>
+                <div class="programmer-description">
+                    Создает современные и отзывчивые веб-приложения с использованием React, Node.js и современных технологий
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Мобильный разработчик">
+                </div>
+                <div class="programmer-name">Баргыбаев Нуртилек</div>
+                <div class="programmer-specialty">Мобильный разработчик</div>
+                <div class="programmer-description">
+                    Эксперт в создании мобильных приложений для iOS и Android с использованием Swift и Kotlin
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Специалист по кибербезопасности">
+                </div>
+                <div class="programmer-name">Дмитрий Иванов</div>
+                <div class="programmer-specialty">Специалист по кибербезопасности</div>
+                <div class="programmer-description">
+                    Защищает корпоративные системы, проводит тестирование на проникновение и анализ безопасности
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Специалист по базам данных">
+                </div>
+                <div class="programmer-name">Елена Кузнецова</div>
+                <div class="programmer-specialty">Специалист по базам данных</div>
+                <div class="programmer-description">
+                    Проектирует и оптимизирует сложные базы данных, expertise в MySQL, PostgreSQL и NoSQL решениях
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Разработчик игр">
+                </div>
+                <div class="programmer-name">Райымбердиев Исхак</div>
+                <div class="programmer-specialty">Разработчик игр</div>
+                <div class="programmer-description">
+                    Создает захватывающие 2D и 3D игры с использованием Unity и Unreal Engine
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Машинное обучение">
+                </div>
+                <div class="programmer-name">Ольга Борисова</div>
+                <div class="programmer-specialty">Машинное обучение</div>
+                <div class="programmer-description">
+                    Разрабатывает алгоритмы искусственного интеллекта и системы машинного обучения
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="DevOps инженер">
+                </div>
+                <div class="programmer-name">Николай Федоров</div>
+                <div class="programmer-specialty">DevOps инженер</div>
+                <div class="programmer-description">
+                    Автоматизирует процессы разработки и развертывания, работает с Docker и Kubernetes
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Full Stack разработчик">
+                </div>
+                <div class="programmer-name">Екатерина Волкова</div>
+                <div class="programmer-specialty">Full Stack разработчик</div>
+                <div class="programmer-description">
+                    Работает над полным циклом разработки, от backend до frontend, используя Python и JavaScript
+                </div>
+            </div>
+
+            <div class="programmer-card">
+                <div class="programmer-icon">
+                    <img src="/api/placeholder/80/80" alt="Embedded системы">
+                </div>
+                <div class="programmer-name">Александр Соколов</div>
+                <div class="programmer-specialty">Embedded системы</div>
+                <div class="programmer-description">
+                    Разрабатывает программное обеспечение для встраиваемых систем и IoT устройств
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>О компании</h3>
+                <ul>
+                    <li><a href="#" data-page="index.html#about">О нас</a></li>
+                    <li><a href="#">Наша команда</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Политика конфиденциональности</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Услуги</h3>
+                <ul>
+                    <li><a href="#" data-page="index.html">Для соискателей</a></li>
+                    <li><a href="#">Для работодателей</a></li>
+                    <li><a href="#">Подбор персонала</a></li>
+                    <li><a href="#">Консультации</a></li>
+                </ul>
+            </div>
+            <div class="footer-column contact-info">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-map-marker-alt"></i> г. Бишкек, ул. Иса Ахунбаева 125/2</p>
+                <p><i class="fas fa-envelope"></i> worktime@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +996 (777) 777 777</p>
+            </div>
+            <div class="footer-column">
+                <h3>Социальные сети</h3>
+                <div class="social-icons">
+                    <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+       
+    </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Navigation functionality
+            const navLinks = document.querySelectorAll('a[data-page]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPage = link.getAttribute('data-page');
+                    window.location.href = targetPage;
+                });
+            });
+
+            // Dark mode toggle (from previous implementation)
+            const modeToggle = document.getElementById("modeToggle");
+            const body = document.body;
+
+            // Check local storage for saved theme preference
+            if (localStorage.getItem("theme") === "dark") {
+                body.classList.add("dark-mode");
+                modeToggle.querySelector("i").classList.remove("fa-moon");
+                modeToggle.querySelector("i").classList.add("fa-sun");
+            }
+
+            modeToggle.addEventListener("click", () => {
+                body.classList.toggle("dark-mode");
+
+                // Save the theme preference to local storage
+                if (body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+
+                // Update icon
+                const icon = modeToggle.querySelector("i");
+                icon.classList.toggle("fa-moon");
+                icon.classList.toggle("fa-sun");
+            });
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+            const navbarMenu = document.getElementById("navbarMenu");
+
+            mobileMenuToggle.addEventListener("click", () => {
+                navbarMenu.classList.toggle("active");
+                mobileMenuToggle.querySelector("i").classList.toggle("fa-bars");
+                mobileMenuToggle.querySelector("i").classList.toggle("fa-times");
+            });
+        });
+    </script>
+</body>
+</html>

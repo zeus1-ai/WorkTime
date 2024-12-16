@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лучшие врачи</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            position: relative;
+        }
+        .navbar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+        }
+        .navbar-menu a:hover {
+            color: #3498db;
+        }
+        .employee-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .employee-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+        .employee-dropdown:hover .employee-dropdown-content {
+            display: block;
+        }
+        .employee-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .employee-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .doctor-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .doctor-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background-color: #e6f2ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .doctor-icon img {
+            width: 50px;
+            height: 50px;
+        }
+        .doctor-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .doctor-specialty {
+            color: #2c7be5;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .doctor-description {
+            color: #666;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 5%;
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-column {
+            flex: 1;
+            margin-right: 30px;
+            min-width: 200px;
+        }
+        .footer-column h3 {
+            color: #3498db;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        .footer-column ul {
+            list-style-type: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-column ul li a:hover {
+            color: #3498db;
+        }
+        .footer-bottom {
+            background-color: #253746;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+        @media (max-width: 1024px) {
+            .doctors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="navbar-logo">Платформа найма</div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar-menu" id="navbarMenu">
+            <a href = "about.html"> О нас</a>
+            <a href="about.html">Главная</a>
+            
+            <div class="employee-dropdown">
+                <a href="#">Соискатели</a>
+                <div class="employee-dropdown-content">
+                    <a href="prog.html">Программисты</a>
+                    <a href="teacher.html" data-page="index.html#education">Учителя</a>
+                    <a href="doctor.html" data-page="index.html#healthcare">Врачи</a>
+                    <a href="injener.html" ">Инженеры</a>
+                    <a href="builder.html" data-page="index.html#construction">Строители</a>
+                    <a href="santecnik.html" data-page="index.html#plumbing">Сантехники</a>
+                    <a href="designer.html" data-page="index.html#design">Дизайнеры</a>
+                    <a href="market.html" >Маркетологи</a>
+                    <a href="burglar.html" data-page="index.html#finance">Бухгалтеры</a>
+                    <a href="seller.html" data-page="index.html#sales">Продавцы</a>
+                    
+                </div>
+            </div>
+            <a href="contact.html">Контакты</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="title">Лучшие врачи в разных областях</h1>
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor1.png" alt="Кардиолог">
+                </div>
+                <div class="doctor-name">Анна Смирнова</div>
+                <div class="doctor-specialty">Кардиолог</div>
+                <div class="doctor-description">Профессионал в диагностике и лечении сердечно-сосудистых заболеваний.</div>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor2.png" alt="Хирург">
+                </div>
+                <div class="doctor-name">Игорь Васильев</div>
+                <div class="doctor-specialty">Хирург</div>
+                <div class="doctor-description">Эксперт в проведении сложных хирургических операций.</div>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor3.png" alt="Терапевт">
+                </div>
+                <div class="doctor-name">Мария Ковалева</div>
+                <div class="doctor-specialty">Терапевт</div>
+                <div class="doctor-description">Обследует и лечит пациентов с хроническими и острыми заболеваниями.</div>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor4.png" alt="Невролог">
+                </div>
+                <div class="doctor-name">Екатерина Иванова</div>
+                <div class="doctor-specialty">Невролог</div>
+                <div class="doctor-description">Специализируется на диагностике и лечении заболеваний нервной системы.</div>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor5.png" alt="Педиатр">
+                </div>
+                <div class="doctor-name">Дмитрий Сидоров</div>
+                <div class="doctor-specialty">Педиатр</div>
+                <div class="doctor-description">Профессионал в уходе за здоровьем детей и подростков.</div>
+            </div>
+            <div class="doctor-card">
+                <div class="doctor-icon">
+                    <img src="https://example.com/doctor6.png" alt="Стоматолог">
+                </div>
+                <div class="doctor-name">Ольга Фролова</div>
+                <div class="doctor-specialty">Стоматолог</div>
+                <div class="doctor-description">Обеспечивает лечение зубов и профилактику заболеваний ротовой полости.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>О компании</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Наша команда</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Услуги</h3>
+                <ul>
+                    <li><a href="#">Для соискателей</a></li>
+                    <li><a href="#">Для работодателей</a></li>
+                    <li><a href="#">Подбор персонала</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Бишкек, ул. Иса Ахунбаева 125/2</p>
+                <p><i class="fas fa-envelope"></i> worktime@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +996 (777) 777 777</p>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Социальные сети</h3>
+                <ul class="social-icons">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+       
+    </footer>
+</body>
+</html>
